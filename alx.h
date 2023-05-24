@@ -1,5 +1,5 @@
-#ifndef SHELL_H
-#define SHELL_H
+#ifndef ALX_H
+#define ALX_H
 
 #include <sys/types.h>
 #include <unistd.h>
@@ -18,16 +18,17 @@
 #define B_SIZ 1024
 
 /*===== include structures =====*/
-#include "structures.h"
+#include "data_handling.h"
 
 /*===== include builtins =====*/
-#include "object.h"
+#include "builtins.h"
 
 /*==== include helper functions =====*/
-#include "functions.h"
+#include "func_library.h"
 
-/*==== include shell functions =====*/
-#include "shell1.h"
+/*===== include simple_shell functions =====*/
+#include "simple_shell.h"
+
 
 /* Help information display macros */
 #define CD_HELP_INFO "cd=\n"\

@@ -1,4 +1,4 @@
-#include "shell.h"
+#include "alx.h"
 
 /**
  * str_length - returns the length of a string.
@@ -25,6 +25,7 @@ int str_length(char *string)
  * @string: String to be copied
  * Return: pointer to the array
  */
+
 char *str_duplicate(char *string)
 {
 	char *result;

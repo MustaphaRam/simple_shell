@@ -1,5 +1,6 @@
-#ifndef SHELL1_H
-#define SHELL1_H
+#ifndef SIMPLE_SHELL_H
+#define SIMPLE_SHELL_H
+
 
 void kimba(_st *nick, int arc, char *argv[], char **env);
 void muturi(char *prompt, _st *nick);
@@ -16,5 +17,6 @@ char *alias_get(_st *nick, char *alias);
 int set_alias(char *alias_string, _st *nick);
 char **_tok(_st *nick);
 int prog_fnd(_st *nick);
+
 
 #endif
