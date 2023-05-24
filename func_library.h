@@ -1,5 +1,6 @@
-#ifndef FUNCTIONS_H
-#define FUNCTIONS_H
+#ifndef FUNC_LIBRARY_H
+#define FUNC_LIBRARY_H
+
 
 int _getline(_st *nick);
 char *_strtok(char *line, char *delim);
@@ -22,4 +23,5 @@ void long_to_string(long number, char *string, int base);
 int _atoi(char *s);
 int count_characters(char *string, char *character);
 
-#endif
+
+#endif /* FUNC_LIBRARY_H */

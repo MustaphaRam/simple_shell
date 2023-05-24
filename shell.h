@@ -1,5 +1,5 @@
-#ifndef _SHELL_H_
-#define _SHELL_H_
+#ifndef SHELL_H
+#define SHELL_H
 
 #include <sys/types.h>
 #include <unistd.h>
@@ -18,17 +18,13 @@
 #define B_SIZ 1024
 
 /*===== include structures =====*/
-#include "data_structures.h"
+#include "data_handling.h"
 
-/*===== include objects =====*/
-#include "objects.h"
+/*===== include builtins =====*/
+#include "builtins.h"
 
 /*==== include helper functions =====*/
-#include "functions.h"
-
-/*===== include simple_shell functions =====*/
-#include "shell.h"
-
+#include "func_library.h"
 
 void kimba(_st *nick, int arc, char *argv[], char **env);
 void muturi(char *prompt, _st *nick);
@@ -39,7 +35,7 @@ void alias_exp(_st *nick);
 int add_buf(char *buffer, char *str_to_add);
 void _token(_st *nick);
 int _execve(_st *nick);
-int obj_in_lst(_st *nick);
+int blt_in_lst(_st *nick);
 int p_alias(_st *nick, char *alias);
 char *alias_get(_st *nick, char *alias);
 int set_alias(char *alias_string, _st *nick);

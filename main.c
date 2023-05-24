@@ -1,142 +1,90 @@
 #include "shell.h"
 
 /**
- * main - Entry point of the shell program
- * @argc: Number of CL arguments
- * @argv: Command line arguments
- * @env: Environment variables
- *
- * Return: 0 is successfull
+ * blt_in_env - displays environment variables
+ * @nick: a pointer to struct
+ * Return: 0 if sucessful, or otherwise if fails.
  */
-int main(int argc, char *argv[], char *env[])
+int blt_in_env(_st *nick)
 {
-	/*Variable and structure declaration*/
-	_st file_stat = {NULL}, *nick = &file_stat;
-	char *prompt = "$ ";
+	int i;
+	char cpname[50] = {'\0'};
+	char *var_copy = NULL;
 
-	/*Initialize the file structure fields*/
-	kimba(nick, argc, argv, env);
-
-	/*Handle Ctrl+C*/
-	signal(SIGINT, ctrl_c_hndl);
-
-	/*Check if the program is connected to a terminal*/
-	if (isatty(STDIN_FILENO) && isatty(STDOUT_FILENO) && argc == 1)
+	/* check if it a NULL argument */
+	if (nick->f[1] == NULL)
+		print_environ(nick);
+	else
 	{
-		/*Command prompt*/
-		errno = 2;
-		prompt = COMMAND_PROMPT;
-	}
-	errno = 0;
+		for (i = 0; nick->f[1][i]; i++)
+		{
+			if (nick->f[1][i] == '=')
+			{
+				var_copy = str_duplicate(env_get_key(cpname, nick));
+				if (var_copy != NULL)
+					env_set_key(cpname, nick->f[1] + i + 1, nick);
 
-	/*Display prompt and process the user-input*/
-	muturi(prompt, nick);
+				/* print the environ */
+				print_environ(nick);
+				if (env_get_key(cpname, nick) == NULL)
+				{
+					_print(nick->f[1]);
+					_print("\n");
+				}
+				else
+				{
+					env_set_key(cpname, var_copy, nick);
+					free(var_copy);
+				}
+				return (0);
+			}
+			cpname[i] = nick->f[1][i];
+		}
+		errno = 2;
+		perror(nick->c);
+		errno = 127;
+	}
+	return (0);
+}
+
+/**
+ * blt_set_env - a function that set env variables.
+ * @nick:a pointer to struct.
+ * Return: 0 if sucessfull.
+ */
+
+int blt_set_env(_st *nick)
+{
+	if (nick->f[1] == NULL || nick->f[2] == NULL)
+		return (0);
+	if (nick->f[3] != NULL)
+	{
+		errno = E2BIG;
+		perror(nick->c);
+		return (5);
+	}
+
+	env_set_key(nick->f[1], nick->f[2], nick);
 
 	return (0);
 }
 
-
 /**
- * ctrl_c_hndl - A function that prints the CMD PROMPT
- * @UNUSED: option of the prototype
- *
+ * blt_in_unset_env - a function that unsets env variables.
+ * @nick: a pointer to struct
+ * Return: 0 if successfull.
  */
-void ctrl_c_hndl(int opr UNUSED)
+int blt_in_unset_env(_st *nick)
 {
-	/*Do not exit, instead:*/
-	/*Display prompt when user-input is Ctrl+c*/
-	_print("\n");
-	_print(COMMAND_PROMPT);
-}
-
-
-/**
- * kimba - A func that initializes the struct
- * @nick: pointer to struct data
- * @argv: Array pointer to user input
- * @env: env variables
- * @argc: Number of arguments for the CLI
- *
- */
-void kimba(_st *nick, int argc, char *argv[], char **env)
-{
-	int i = 0;
-
-	nick->a = argv[0];/*hsh*/
-	nick->b = NULL;/*Read user-input*/
-	nick->c = NULL;/*First cmd*/
-	nick->d = 0;/*Number of executed cmd*/
-
-	if (argc == 1)/*hsh*/
-		nick->e = STDIN_FILENO;/*File descriptors*/
-	else
+	if (nick->f[1] == NULL)
+		return (0);
+	if (nick->f[2] != NULL)
 	{
-		nick->e = open(argv[1], O_RDONLY);
-		if (nick->e == -1)
-		{
-			_printe(nick->a);
-			_printe(": 0: Can't open ");
-			_printe(argv[1]);
-			_printe("\n");
-			exit(127);
-		}
+		errno = E2BIG;
+		perror(nick->c);
+		return (5);
 	}
-	nick->f = NULL;/*Tokenized input*/
-	nick->env = malloc(sizeof(char *) * 50);/*Pointer to env*/
-	if (env)
-	{
-		for (; env[i]; i++)/*Duplicate env var(path)*/
-		{
-			nick->env[i] = str_duplicate(env[i]);
-		}
-	}
-	nick->env[i] = NULL;
-	env = nick->env;
+	env_remove_key(nick->f[1], nick);
 
-	nick->h = malloc(sizeof(char *) * 20);
-	for (i = 0; i < 20; i++)
-	{
-		nick->h[i] = NULL;/*Pointer to aliases*/
-	}
-}
-
-
-
-/**
- * muturi - A func that reads and execute user-input
- * @prompt: A pointer to Shell prompt
- * @nick: A pointer to struct
- *
- */
-void muturi(char *prompt, _st *nick)
-{
-	/*Variable declaration*/
-	int error_code = 0, string_len = 0;
-
-	while (++(nick->d))/*Whenever executing*/
-	{
-		_print(prompt);/*Display prompt*/
-		/*Read user-input*/
-		error_code = string_len = _getline(nick);
-
-		if (error_code == EOF)/*Check length of cmd*/
-		{
-			free_all_data(nick);
-			exit(errno);
-		}
-		if (string_len >= 1)/*If cmd is in range*/
-		{
-			alias_exp(nick);/*Execute alias*/
-			var_exp(nick);/*Execute special char*/
-			_token(nick);/*Tokenize user-cmd*/
-			if (nick->f[0])
-			{
-				/*Execute user-cmd*/
-				error_code = _execve(nick);
-				if (error_code != 0)
-					_print_error(error_code, nick);
-			}
-			free_recurrent_data(nick);/*free memory*/
-		}
-	}
+	return (0);
 }

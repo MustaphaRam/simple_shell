@@ -2,12 +2,14 @@
 
 
 /**
- * obj_in_ext - A func that quits the shell program
+ * blt_in_ext - A func that quits the shell program
  * @nick: A pointer to struct
  * Return: 0 if successfull
  *
  */
-int obj_in_ext(_st *nick)
+
+
+int blt_in_ext(_st *nick)
 {
 	int i;
 
@@ -30,14 +32,14 @@ int obj_in_ext(_st *nick)
 
 
 /**
- * obj_in_cd - A func that changes current dir
+ * blt_in_cd - A func that changes current dir
  * @nick: A pointer to struct
  * Return: 0 if successfull
  *
  */
 
 
-int obj_in_cd(_st *nick)
+int blt_in_cd(_st *nick)
 {
 	char *dir_home = env_get_key("HOME", nick), *dir_old = NULL;
 	char old_dir[128] = {0};
@@ -103,14 +105,14 @@ int st_wk_dir(_st *nick, char *new_dir)
 
 
 /**
- * obj_in_hlp - A func that displays env variables
+ * blt_in_hlp - A func that displays env variables
  * @nick: A pointer to struct
  *
  * Return: 0 if successfull
  */
 
 
-int obj_in_hlp(_st *nick)
+int blt_in_hlp(_st *nick)
 {
 	int i, length = 0;
 	char *van[6] = {NULL};
@@ -149,14 +151,14 @@ int obj_in_hlp(_st *nick)
 
 
 /**
- * obj_in_alias - A func that sets aliases
+ * blt_in_alias - A func that sets aliases
  * @nick: A pointer to struct
  *
  * Return: 0 for successfull code
  */
 
 
-int obj_in_alias(_st *nick)
+int blt_in_alias(_st *nick)
 {
 	int i = 0;
 

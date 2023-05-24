@@ -8,6 +8,8 @@
  *
  * Return: Void
  */
+
+
 void long_to_string(long number, char *string, int base)
 {
 	int index = 0, inNegative = 0;

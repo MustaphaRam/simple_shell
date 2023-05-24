@@ -2,8 +2,7 @@
 #define STRUCTURES_H
 
 /**
- * file - struct info- struct for the program's data
- * description : struct file programe data
+ * struct info- struct for the program's data
  * @a: the name of the executable
  * @b: pointer to the input read for _getline
  * @c: pointer to the first command typed by the user
@@ -26,14 +25,14 @@ typedef struct file
 } _st;
 
 /**
- * struct objects - struct for the objects
- * @object: the name of the object
- * @function: the associated function to be called for each object
+ * struct builtins - struct for the builtins
+ * @builtin: the name of the builtin
+ * @function: the associated function to be called for each builtin
  */
-typedef struct objects
+typedef struct builtins
 {
-	char *object;
+	char *builtin;
 	int (*function)(_st *nick);
-} objects;
+} builtins;
 
 #endif /* STRUCTURES */

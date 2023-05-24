@@ -11,8 +11,8 @@ int _execve(_st *nick)
 	int retval = 0, status;
 	pid_t pidd;
 
-	retval = obj_in_lst(nick);
-	if (retval != -1)/*checks if the cmd is a obj-in*/
+	retval = blt_in_lst(nick);
+	if (retval != -1)/*checks if the cmd is a blt-in*/
 		return (retval);
 
 	retval = prog_fnd(nick);

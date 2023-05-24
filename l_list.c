@@ -2,22 +2,23 @@
 
 
 /**
- * obj_in_lst - a program that execute object
+ * blt_in_lst - a program that execute builtin
  * @nick: a pointer to struct
  *
  * Return: Return a function value,otherwise returns -1.
  **/
-int obj_in_lst(_st *nick)
+
+int blt_in_lst(_st *nick)
 {
 	int iterator;
-	objects options[] = {
-		{"exit", ob_in_ext},
-		{"help", ob_in_hlp},
-		{"cd", ob_in_cd},
-		{"alias", ob_in_alias},
-		{"env", ob_in_env},
-		{"setenv", ob_set_env},
-		{"unsetenv", ob_in_unset_env},
+	builtins options[] = {
+		{"exit", blt_in_ext},
+		{"help", blt_in_hlp},
+		{"cd", blt_in_cd},
+		{"alias", blt_in_alias},
+		{"env", blt_in_env},
+		{"setenv", blt_set_env},
+		{"unsetenv", blt_in_unset_env},
 		{NULL, NULL}
 	};
 
@@ -28,6 +29,7 @@ int obj_in_lst(_st *nick)
 		if (str_compare(options[iterator].builtin, nick->c, 0))
 		{
 			/* execute a function */
+
 			return (options[iterator].function(nick));
 		}
 	}

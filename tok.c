@@ -6,6 +6,8 @@
  *
  * Return: Tokens
  */
+
+
 void _token(_st *nick)
 {
 	char *delimiter = " \t";

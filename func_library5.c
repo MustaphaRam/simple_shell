@@ -6,6 +6,7 @@
  *
  * Return:(void)
  */
+
 void free_recurrent_data(_st *nick)
 {
 	if (nick->f)
