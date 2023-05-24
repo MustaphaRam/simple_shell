@@ -7,8 +7,6 @@
  * Return: 0 if successfull
  *
  */
-
-
 int obj_in_ext(_st *nick)
 {
 	int i;

@@ -7,7 +7,6 @@
  *
  * Return: Return a function value,otherwise returns -1.
  **/
-
 int obj_in_lst(_st *nick)
 {
 	int iterator;

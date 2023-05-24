@@ -27,7 +27,7 @@ typedef struct file
 
 /**
  * struct objects - struct for the objects
- * @builtin: the name of the object
+ * @object: the name of the object
  * @function: the associated function to be called for each object
  */
 typedef struct objects
