@@ -1,5 +1,5 @@
-#ifndef SHELL_H
-#define SHELL_H
+#ifndef SHELL1_H
+#define SHELL1_H
 
 void kimba(_st *nick, int arc, char *argv[], char **env);
 void muturi(char *prompt, _st *nick);
