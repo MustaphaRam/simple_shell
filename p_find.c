@@ -1,4 +1,4 @@
-#include "alx.h"
+#include "shell.h"
 
 int prog_fnd(_st *nick);
 char **_tok(_st *nick);
