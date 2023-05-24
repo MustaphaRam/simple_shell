@@ -26,6 +26,9 @@
 /*==== include helper functions =====*/
 #include "functions.h"
 
+/*==== include shell functions =====*/
+#include "shell1.h"
+
 /* Help information display macros */
 #define CD_HELP_INFO "cd=\n"\
 "cd: cd [dir]"\
